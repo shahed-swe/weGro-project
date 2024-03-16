@@ -4,8 +4,22 @@ const base = 'https://api.deezer.com';
 import axios from "axios";
 
 
-const fetchSongs = async () => {
-    const response = await axios.get(hosturl.host + "/api/music/top-songs")
+export const fetchSongs = async (page, perpage) => {
+    try {
+        const config = {
+            headers: {
+                "Content-Type":"application/json"
+            }
+        }
+        const response = await axios.get(hosturl.host + `/api/music/top-songs?page=${page}&pageSize=${perpage}`, config)
+        if (response.status == 200) {
+            return response.data
+        }
+        
+    } catch (error) {
+        console.log(error)
+    }
+    
 }
 
 async function fetchData(endpoint) {

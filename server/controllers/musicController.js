@@ -18,14 +18,21 @@ const searchMusic = async (req, res, next) => {
 };
 
 
-const topSongs = async(req, res, next) => {
+const topSongs = async (req, res, next) => {
     try {
-        const musicResults = await MusicTrack.find({});
+        const page = parseInt(req.query.page) || 1; 
+        const pageSize = parseInt(req.query.pageSize) || 10; 
+        const skip = (page - 1) * pageSize;
+
+        const musicResults = await MusicTrack.find({})
+            .skip(skip)
+            .limit(pageSize);
+
         res.json(musicResults);
     } catch (error) {
         next(error);
     }
-}
+};
 
 const addBulkMusic = async (req, res, next) => {
     try {

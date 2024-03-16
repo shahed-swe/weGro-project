@@ -1,5 +1,5 @@
 const dev = {
-    "host": "localhost:5000"
+    "host": "http://localhost:5000"
 }
 
 const prod = {
