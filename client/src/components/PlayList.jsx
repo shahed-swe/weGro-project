@@ -1,49 +1,28 @@
-import { useDispatch } from "react-redux";
+import { SiGocd } from "react-icons/si";
+import { RiDeleteBinLine } from "react-icons/ri";
 
-import PlayPause from "./PlayPause";
-import { playPause, setActiveSong } from "../redux/features/playerSlice";
 
-const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
-    const dispatch = useDispatch();
-
-    const handlePauseClick = () => {
-        dispatch(playPause(false));
-    }
-
-    const handlePlayClick = () => {
-        dispatch(setActiveSong({ song, data, i }));
-        dispatch(playPause(true));
-    }
-
+const Playlist = ({ playlist, onDelete }) => {
     return (
         <div className="flex flex-col w-[250px] p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
+            <button
+                onClick={() => onDelete(playlist)}
+                className="absolute top-2 right-2 px-2 py-2 text-white hover:text-white"
+            >
+                <RiDeleteBinLine size={20}/>
+            </button>
             <div className="relative w-full h-56 group">
-                <div
-                    className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${activeSong?.title === song.title ? "flex bg-black bg-opacity-70" : "hidden"
-                        }`}
-                >
-                    <PlayPause
-                        isPlaying={isPlaying}
-                        activeSong={activeSong}
-                        song={song}
-                        handlePause={handlePauseClick}
-                        handlePlay={handlePlayClick}
-                    />
-                </div>
-                <img src={song?.thumbnail} alt="song_img" className="w-[100%] h-[100%] rounded-sm" />
+                {playlist && playlist?.tracks[0]?.thumbnail ?
+                    <img src={playlist?.tracks[0]?.thumbnail} alt="song_img" className="w-[100%] h-[100%] rounded-sm" /> : <SiGocd className="w-[100%] h-[100%] rounded-sm" />}
             </div>
 
             <div className="mt-4 flex flex-col">
                 <p className="font-semibold text-lg text-white truncate">
-                    <a to={`/song/${song?.key}`}> {song.title} </a>
-                </p>
-
-                <p className="text-sm truncate text-gray-300 mt-1">
-                    {song.artistName}
+                    <a to={`/song/${playlist?.key}`}> {playlist.name} </a>
                 </p>
             </div>
         </div>
     );
 };
 
-export default SongCard;
+export default Playlist;

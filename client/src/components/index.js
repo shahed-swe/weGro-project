@@ -11,6 +11,7 @@ import Loader from './Loader';
 import Error from './Error';
 import Layout from './Layout';
 import Modal from './Modal';
+import Playlist from './PlayList';
 export {
   TopPlay,
   Sidebar,
@@ -24,5 +25,6 @@ export {
   Loader,
   Error,
   Layout,
-  Modal
+  Modal,
+  Playlist
 };

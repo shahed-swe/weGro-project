@@ -35,7 +35,7 @@ const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
-  const { data: musicData } = useGetTopSongsQuery({ page: 1, perPage: 10 });
+  const { data } = useGetTopSongsQuery({ page: 1, perPage: 10 });
 
   const divRef = useRef(null);
 
@@ -43,7 +43,7 @@ const TopPlay = () => {
     divRef.current.scrollIntoView({ behavior: 'smooth' });
   });
 
-  const topPlays = musicData?.slice(0, 5);
+  const topPlays = data?.slice(0, 5);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));

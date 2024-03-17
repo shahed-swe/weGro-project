@@ -1,48 +1,49 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Error, Loader, SongCard, Modal } from "../components";
-import { useGetSongsByCountryQuery } from "../redux/services/wegro";
-import { useAddPlaylistMutation } from "../redux/services/music";
+import { Playlist, Modal } from "../components";
+import { useAddPlaylistMutation, useGetAllPlayListsQuery, useDeletePlaylistMutation } from "../redux/services/music";
 import Layout from "../components/Layout";
+import { toast } from 'react-toastify';
 
 const AroundYou = () => {
-    const [country, setCountry] = useState('');
-    const [loading, setloading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { activeSong, isPlaying } = useSelector((state) => state.player);
-    const { data, isFetching, error } = useGetSongsByCountryQuery(country);
-    const [addPlaylist, { isLoading, isError, error: createError }] = useAddPlaylistMutation();
-
-    useEffect(() => {
-        axios.get(`https://geo.ipify.org/api/v2/country?apiKey=at_nxOsushE5XT1Zrw6ULvn8uIRtTrOU`)
-            .then((res) => setCountry(res?.data?.location?.country))
-            .catch((err) => console.log(err))
-            .finally(() => setloading(false));
-    }, [country]);
-
-    if (isFetching && loading) return <Loader title="Loading songs around you" />;
-
-    if (error && country) return <Error />;
+    const [addPlaylist] = useAddPlaylistMutation();
+    const { data, refetch } = useGetAllPlayListsQuery()
+    const [deletePlaylist] = useDeletePlaylistMutation();
 
     const handleCreatePlaylist = async (payload) => {
         try {
             const response = await addPlaylist(payload);
             if(response){
-                console.log(response)
+                toast.success('Playlist created successfully');
+                refetch()
+            }else if(response?.error?.status === 401){
+                toast.error(response.error.data.error);
             }
         } catch (error) {
-            
             console.log(error)
         }
     };
+
+    const handleDeletePlayList = async (playlist) => {
+        try {
+            const response = await deletePlaylist(playlist._id);
+            console.log(response)
+            refetch()
+            if(response){
+                toast.success('Playlist Deleted successfully');
+            }
+        } catch (error) {
+            console.error('Failed to delete playlist:', error);
+        }
+    }
 
     return (
         <Layout>
             <div className="flex flex-col">
                 <h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">
-                    Private Playlist <span className="font-black">{country}</span>
+                    Private Playlist
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="ml-2 px-2 bg-[#37621C] text-white rounded-full shadow-md hover:bg-[#365522]"
@@ -52,15 +53,8 @@ const AroundYou = () => {
                 </h2>
 
                 <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-                    {data?.map((song, i) => (
-                        <SongCard
-                            key={song.key}
-                            song={song}
-                            isPlaying={isPlaying}
-                            activeSong={activeSong}
-                            data={data}
-                            i={i}
-                        />
+                    {data?.map((playlist, i) => (
+                        <Playlist playlist={playlist} onDelete={(playlist) => handleDeletePlayList(playlist)} key={i}/>
                     ))}
                 </div>
             </div>

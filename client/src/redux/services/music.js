@@ -16,7 +16,7 @@ export const MusicService = createApi({
             }
         }),
         getSongsBySearch: builder.query({ query: (searchTerm) => `/music/search-music?q=${searchTerm}` }),
-        getAllPlayLists: builder.query({ query: () => "/api/music/all-playlists"}),
+        getAllPlayLists: builder.query({ query: () => "/music/all-playlists"}),
         addPlaylist: builder.mutation({
             query: (playlist) => ({
                 url: '/music/add-playlist',
@@ -24,6 +24,12 @@ export const MusicService = createApi({
                 body: playlist
             })
         }),
+        deletePlaylist: builder.mutation({
+            query: (playlistId) => ({
+                url: `/music/delete-playlist/${playlistId}`,
+                method: 'DELETE'
+            })
+        })
     }),
 });
 
@@ -31,5 +37,6 @@ export const {
     useGetTopSongsQuery,
     useGetSongsBySearchQuery,
     useGetAllPlayListsQuery,
-    useAddPlaylistMutation
+    useAddPlaylistMutation,
+    useDeletePlaylistMutation
 } = MusicService;
