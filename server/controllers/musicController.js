@@ -20,13 +20,12 @@ const searchMusic = async (req, res, next) => {
 
 const topSongs = async (req, res, next) => {
     try {
-        const page = parseInt(req.query.page) || 1; 
-        const pageSize = parseInt(req.query.pageSize) || 10; 
-        const skip = (page - 1) * pageSize;
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 10;
 
-        const musicResults = await MusicTrack.find({})
-            .skip(skip)
-            .limit(pageSize);
+        const musicResults = await MusicTrack.aggregate([
+            { $sample: { size: pageSize } }
+        ]);
 
         res.json(musicResults);
     } catch (error) {

@@ -57,7 +57,17 @@ const addMusicToPlaylist = async (req, res, next) => {
     }
 }
 
+const getAllGlobalPlaylist = async (req, res, next) => {
+    try {
+        const playLists = await Playlist.find({})
+        res.json(playLists)
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
     createPlaylist,
-    addMusicToPlaylist
+    addMusicToPlaylist,
+    getAllGlobalPlaylist
 }

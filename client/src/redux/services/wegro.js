@@ -11,6 +11,7 @@ export const weGroMusic = createApi({
     },
   }),
   endpoints: (builder) => ({
+    getTopSongs: builder.query({ query: (page, perPage) => `/music/top-songs?page=${page}&pageSize=${perPage}` }),
     getTopCharts: builder.query({ query: () => '/charts/world' }),
     getSongsByGenre: builder.query({ query: (genre) => `/charts/genre-world?genre_code=${genre}` }),
     getSongDetails: builder.query({ query: ({ songid }) => `/tracks/details?track_id=${songid}` }),

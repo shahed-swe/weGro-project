@@ -9,5 +9,6 @@ router.get("/top-songs", musicController.topSongs)
 router.get("/search-music", musicController.searchMusic)
 router.post("/add-playlist", authenticate, playlistController.createPlaylist)
 router.put("/add-music-to-playlist", authenticate, playlistController.addMusicToPlaylist)
+router.put("/all-playlists", playlistController.getAllGlobalPlaylist)
 
 module.exports = router

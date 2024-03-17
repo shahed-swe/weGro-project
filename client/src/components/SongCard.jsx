@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import PlayPause from "./PlayPause";
@@ -32,7 +31,7 @@ const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
             handlePlay={handlePlayClick}          
           />
         </div>
-        <img src={song.images?.coverart} alt="song_img" className="w-[100%] h-[100%] rounded-sm" />
+        <img src={song?.thumbnail} alt="song_img" className="w-[100%] h-[100%] rounded-sm" />
       </div>
 
       <div className="mt-4 flex flex-col">
@@ -41,9 +40,7 @@ const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
         </p>
 
         <p className="text-sm truncate text-gray-300 mt-1">
-          <a to={song.subtitle ? `/artists/${song?.subtitle[0]?.adamid}` : "/top-artists"}>
-            {song.subtitle}
-          </a>
+            {song.artistName}
         </p>
       </div>
     </div>

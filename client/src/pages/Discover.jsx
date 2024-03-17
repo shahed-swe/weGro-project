@@ -3,25 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { Error, Layout, Loader, SongCard } from "../components";
 import { genres } from "../assets/constants";
 
-import { useGetSongsByGenreQuery } from "../redux/services/wegro";
+import { useGetTopSongsQuery } from "../redux/services/music";
 import { selectGenreListId } from "../redux/features/playerSlice";
 
 const Discover = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
-  const { data, isFetching, error } = useGetSongsByGenreQuery(genreListId || 'POP');
+  const { data, isFetching, error } = useGetTopSongsQuery({ page: 1, perPage: 20 });
 
   if (isFetching) return <Loader title="Loading songs..." />;
 
   if (error) return <Error />;
 
-  const genreTitle = genres.find(({ value }) => value === genreListId)?.title;
 
   return (
     <Layout>
       <div className="flex flex-col">
         <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
-          <h2 className="font-bold text-3xl text-white text-left">Discover {genreTitle}</h2>
+          <h2 className="font-bold text-3xl text-white text-left">Discover</h2>
           <select
             onChange={(e) => { dispatch(selectGenreListId(e.target.value)) }}
             value={genreListId || 'pop'}
@@ -38,7 +37,7 @@ const Discover = () => {
         <div className="flex flex-wrap sm:justify-start justify-center gap-8">
           {data?.map((song, i) => (
             <SongCard
-              key={song.key}
+              key={i}
               song={song}
               isPlaying={isPlaying}
               activeSong={activeSong}
