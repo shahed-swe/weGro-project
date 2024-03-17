@@ -1,4 +1,4 @@
-# Music App Clone (Modified Lyrics Version)
+# WeGro Music (Modified Lyrics Version)
 
 Develop an elegant React.js Music Application based on the original Project Lyrics by the JavaScript Mastery team. Original README [here](https://github.com/adrianhajdin/project_music_player)
 
