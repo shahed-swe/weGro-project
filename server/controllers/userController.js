@@ -20,6 +20,7 @@ const login = async (req, res, next) => {
         expiresIn: "1d"
       }
     )
+    
     return res.json({ status: true, user, token });
   } catch (ex) {
     next(ex);

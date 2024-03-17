@@ -1,4 +1,4 @@
-import { HiOutlineHashtag, HiOutlineHome, HiOutlinePhotograph, HiOutlineUserGroup } from 'react-icons/hi';
+import { HiOutlineHashtag, HiOutlineHome, HiOutlinePhotograph, HiOutlineUserGroup, HiLogin, HiUser, HiUserAdd, HiLogout } from 'react-icons/hi';
 
 export const genres = [
   { title: 'Pop', value: 'POP' },
@@ -18,8 +18,10 @@ export const genres = [
 ];
 
 export const links = [
-  { name: 'Discover', to: '/', icon: HiOutlineHome },
-  { name: 'Around You', to: '/around-you', icon: HiOutlinePhotograph },
-  { name: 'Top Artists', to: '/top-artists', icon: HiOutlineUserGroup },
-  { name: 'Top Charts', to: '/top-charts', icon: HiOutlineHashtag },
+  { name: 'Discover', to: '/', icon: HiOutlineHome ,authCheck: false},
+  { name: 'Play Lists', to: '/play-lists', icon: HiOutlinePhotograph ,authCheck: false},
+  { name: 'Top Artists', to: '/top-artists', icon: HiOutlineUserGroup ,authCheck: false},
+  { name: 'Top Charts', to: '/top-charts', icon: HiOutlineHashtag ,authCheck: false},
+  { name: "Login", to: "/login", icon: HiLogin ,authCheck: true},
+  { name: "Registartion", to: "/registration", icon: HiUserAdd ,authCheck: true}
 ];

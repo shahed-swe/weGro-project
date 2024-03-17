@@ -9,7 +9,7 @@ import RelatedSongs from './RelatedSongs';
 import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
-
+import Layout from './Layout';
 export {
   TopPlay,
   Sidebar,
@@ -22,4 +22,5 @@ export {
   MusicPlayer,
   Loader,
   Error,
+  Layout,
 };

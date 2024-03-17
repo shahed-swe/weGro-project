@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import layout from "./Layout";
 
 const ArtistCard = ({ track }) => {
   const navigate = useNavigate();

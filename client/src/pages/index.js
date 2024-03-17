@@ -5,7 +5,8 @@ import SongDetails from './SongDetails';
 import Search from './Search';
 import TopCharts from './TopCharts';
 import AroundYou from './AroundYou';
-
+import Login from './Login';
+import Registration from './Registration';
 export {
   Discover,
   Search,
@@ -14,4 +15,6 @@ export {
   SongDetails,
   TopCharts,
   AroundYou,
+  Login,
+  Registration
 };
