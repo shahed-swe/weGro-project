@@ -4,10 +4,13 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const musicRoutes = require("./routes/musicAndPlayListRoutes")
 const app = express();
+const specs = require('./swaggerDef');
+const swaggerUi = require('swagger-ui-express');
 require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 mongoose
   .connect(process.env.MONGO_URL, {
