@@ -34,7 +34,11 @@ This will start the client app in development mode with hot-reloading enabled.
 ## Usage
 
 Once both the server and client applications are running, you can access the client application in your web browser at [http://localhost:3000](http://localhost:5001).
+[http://localhost:5001](http://localhost:5001).
 
+also you can get the api doc in
+
+[http://localhost:5001/api-docs](http://localhost:5001/api-docs).
 ## Contributing
 
 If you would like to contribute to this project, please follow the [Contributing Guidelines](CONTRIBUTING.md).
