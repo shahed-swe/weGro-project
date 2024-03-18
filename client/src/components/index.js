@@ -10,8 +10,9 @@ import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
 import Layout from './Layout';
-import Modal from './Modal';
+import PlayListCreateModal from './PlayListCreateModal';
 import Playlist from './PlayList';
+import AddToPlayListModal from './AddtoPlayListModal';
 export {
   TopPlay,
   Sidebar,
@@ -25,6 +26,7 @@ export {
   Loader,
   Error,
   Layout,
-  Modal,
-  Playlist
+  PlayListCreateModal,
+  Playlist,
+  AddToPlayListModal
 };

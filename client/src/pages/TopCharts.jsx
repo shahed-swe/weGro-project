@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
-import { Error, Layout, Loader, SongCard } from "../components";
-import { useGetTopSongsQuery } from "../redux/services/music";
+import { Error, Layout, Loader, SongCard, AddToPlayListModal } from "../components";
+import { useGetTopSongsQuery, useAddMusicToPlayListMutation } from "../redux/services/music";
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 
 const TopCharts = () => {
     const [page, setPage] = useState(1);
     const { activeSong, isPlaying } = useSelector((state) => state.player);
     const { data: initialData, isFetching, isLoading, error, isFetchingMore } = useGetTopSongsQuery({ page: page, perPage: 20 });
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedSong, setSelectedSong] = useState(null)
+    const [addMusicToPlaylist] = useAddMusicToPlayListMutation()
 
-    // Use state to store the data
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -23,6 +26,29 @@ const TopCharts = () => {
 
     if (isLoading && page === 1) return <Loader title="Loading top charts" />;
     if (error) return <Error />;
+
+
+    const handleAddSongToPlaylist = async (data) => {
+        const payload = {
+            playlistId: data,
+            musicId: selectedSong._id
+        }
+        try {
+            const response = await addMusicToPlaylist(payload)
+            console.log(response)
+            if (response.data) {
+                toast.success('Song Successfully added to playlist');
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const handleModal = ({ data, modalOpen }) => {
+        setSelectedSong(data)
+        setIsModalOpen(modalOpen)
+    }
 
     return (
         <Layout>
@@ -40,6 +66,7 @@ const TopCharts = () => {
                             activeSong={activeSong}
                             data={data}
                             i={i}
+                            handleModal={handleModal}
                         />
                     ))}
                 </div>
@@ -53,6 +80,11 @@ const TopCharts = () => {
                     Load More
                 </button>
             </div>
+            <AddToPlayListModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleAddSongToPlaylist}
+            />
         </Layout>
     );
 };

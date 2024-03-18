@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Modal = ({ isOpen, onClose, onSubmit }) => {
+const PlayListCreateModal = ({ isOpen, onClose, onSubmit }) => {
     const [playlistName, setPlaylistName] = useState("");
     const [isPublic, setIsPublic] = useState(false);
 
@@ -92,4 +92,4 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     );
 };
 
-export default Modal;
+export default PlayListCreateModal;

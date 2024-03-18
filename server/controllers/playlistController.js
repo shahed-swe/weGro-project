@@ -18,36 +18,21 @@ const createPlaylist = async (req, res, next) => {
 
 const addMusicToPlaylist = async (req, res, next) => {
     try {
-        const { playlistId, musicIds } = req.body;
+        const { playlistId, musicId } = req.body;
         const playlist = await Playlist.findById(playlistId)
         if(!playlist){
             return res.status(404).json({message: "Playlist not found"})
         }
 
-
-        if (!musicIds || !Array.isArray(musicIds) || musicIds.length === 0) {
-            return res.status(400).json({ message: 'Invalid musicIds' });
+        const music = await MusicTrack.findById(musicId)
+        if (!music) {
+            return res.status(400).json({ message: 'Music Not Found' });
         }
 
-
-        const addedMusicTracks = [];
-        for (const musicId of musicIds) {
-
-            let musicTrack = await MusicTrack.findById(musicId);
-            if (!musicTrack) {
-
-                musicTrack = new MusicTrack({ title, artist, duration, genre });
-                musicTrack = await musicTrack.save();
-            }
-            addedMusicTracks.push(musicTrack);
-        }
-
-
-        playlist.tracks.push(...addedMusicTracks.map(track => track._id));
+        playlist.tracks.push(musicId);
         await playlist.save();
 
         res.json(playlist);
-
         res.json(playlist);
     } catch (error) {
         next(error);

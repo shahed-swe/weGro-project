@@ -29,6 +29,13 @@ export const MusicService = createApi({
                 url: `/music/delete-playlist/${playlistId}`,
                 method: 'DELETE'
             })
+        }),
+        addMusicToPlayList:  builder.mutation({
+            query: (payload) => ({
+                url: '/music/add-music-to-playlist',
+                method: 'PUT',
+                body: payload
+            })
         })
     }),
 });
@@ -38,5 +45,6 @@ export const {
     useGetSongsBySearchQuery,
     useGetAllPlayListsQuery,
     useAddPlaylistMutation,
-    useDeletePlaylistMutation
+    useDeletePlaylistMutation,
+    useAddMusicToPlayListMutation
 } = MusicService;

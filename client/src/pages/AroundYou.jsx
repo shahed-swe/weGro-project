@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
-import { Playlist, Modal } from "../components";
+import { Playlist, PlayListCreateModal } from "../components";
 import { useAddPlaylistMutation, useGetAllPlayListsQuery, useDeletePlaylistMutation } from "../redux/services/music";
 import Layout from "../components/Layout";
 import { toast } from 'react-toastify';
@@ -58,7 +57,7 @@ const AroundYou = () => {
                     ))}
                 </div>
             </div>
-            <Modal
+            <PlayListCreateModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSubmit={handleCreatePlaylist}

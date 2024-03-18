@@ -1,19 +1,48 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { Error, Layout, Loader, SongCard } from "../components";
+import { AddToPlayListModal, Error, Layout, Loader, SongCard } from "../components";
 import { genres } from "../assets/constants";
 
-import { useGetTopSongsQuery } from "../redux/services/music";
+import { useGetTopSongsQuery, useAddMusicToPlayListMutation } from "../redux/services/music";
 import { selectGenreListId } from "../redux/features/playerSlice";
+import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const Discover = () => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null)
+  const [addMusicToPlaylist] = useAddMusicToPlayListMutation()
   const { activeSong, isPlaying, genreListId } = useSelector((state) => state.player);
   const { data, isFetching, error } = useGetTopSongsQuery({ page: 1, perPage: 20 });
+
 
   if (isFetching) return <Loader title="Loading songs..." />;
 
   if (error) return <Error />;
+  
+  const handleAddSongToPlaylist =async (data) => {
+    const payload = {
+      playlistId: data,
+      musicId: selectedSong._id
+    }
+    try {
+      const response = await addMusicToPlaylist(payload)
+      if (response.data) {
+        toast.success('Song Successfully added to playlist');
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  const handleModal = ({data, modalOpen}) => {
+    setSelectedSong(data)
+    setIsModalOpen(modalOpen)
+  }
+
+
 
 
   return (
@@ -42,10 +71,16 @@ const Discover = () => {
               isPlaying={isPlaying}
               activeSong={activeSong}
               data={data}
+              handleModal={handleModal}
               i={i} />
           ))}
         </div>
       </div>
+      <AddToPlayListModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddSongToPlaylist}
+      />
     </Layout>
   );
 };
