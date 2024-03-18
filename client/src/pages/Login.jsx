@@ -16,6 +16,7 @@ const Login = () => {
             const response = await login({ username, password });
             if(response.data.status){
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem("user", JSON.stringify(response.data.user))
                 history("/")
             }
         } catch (error) {

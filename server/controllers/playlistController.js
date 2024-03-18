@@ -41,12 +41,23 @@ const addMusicToPlaylist = async (req, res, next) => {
 
 const getAllGlobalPlaylist = async (req, res, next) => {
     try {
-        const playLists = await Playlist.find({}).populate("tracks")
+        const playLists = await Playlist.find({isPublic: true}).populate("tracks")
         res.json(playLists)
     } catch (error) {
         next(error)
     }
 }
+
+const getAllPlayListsBasedOnUserId = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const playLists = await Playlist.find({ owner: userId }).populate('tracks');
+        res.json(playLists);
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 
 const deletePlaylist = async (req, res, next) => {
@@ -84,5 +95,6 @@ module.exports = {
     addMusicToPlaylist,
     getAllGlobalPlaylist,
     deletePlaylist,
-    playListDetails
+    playListDetails,
+    getAllPlayListsBasedOnUserId
 }

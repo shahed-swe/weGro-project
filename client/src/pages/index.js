@@ -1,5 +1,4 @@
 import Discover from './Discover';
-import TopArtists from './TopArtists';
 import ArtistDetails from './ArtistDetails';
 import SongDetails from './SongDetails';
 import Search from './Search';
@@ -8,10 +7,11 @@ import AroundYou from './AroundYou';
 import Login from './Login';
 import Registration from './Registration';
 import PlayListSongs from './PlaylistSongs';
+import PersonalPlaylist from './PersonalPlayList';
 export {
   Discover,
   Search,
-  TopArtists,
+  PersonalPlaylist,
   ArtistDetails,
   SongDetails,
   TopCharts,

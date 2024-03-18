@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useGetAllPlayListsQuery } from "../redux/services/music";
+import { useGetPlayListBasedOnUserIdQuery } from "../redux/services/music";
 
 const AddToPlayListModal = ({ isOpen, onClose, onSubmit }) => {
     const [playListId, setPlayListId] = useState("");
-    const { data } = useGetAllPlayListsQuery()
+    const user = JSON.parse(window.localStorage.getItem("user"))
+    const { data } = useGetPlayListBasedOnUserIdQuery({ userId: user._id })
+    console.log({data})
 
     const handleSubmit = () => {
         onSubmit(playListId)

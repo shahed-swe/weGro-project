@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HiOutlineMenu } from "react-icons/hi";
+import { HiOutlineMenu, HiOutlinePhotograph } from "react-icons/hi";
 import { RiCloseLine } from "react-icons/ri";
 
 import { logo } from "../assets";
@@ -13,7 +13,6 @@ const NavLinks = ({ handleClick, isLoggedin }) => {
     localStorage.clear()
     window.location.reload()
   }
-
 
   return <div className="mt-10">
     {links.map((item) => {
@@ -41,6 +40,14 @@ const NavLinks = ({ handleClick, isLoggedin }) => {
       }
     }
     )}
+    {isLoggedin ? <NavLink
+      to={"/personal-play-list"}
+      className="flex flex-row justify-start items-center my-8 text-sm font-medium text-gray-500 hover:text-white"
+      onClick={() => handleClick && handleClick()}
+    >
+      <HiOutlinePhotograph className="w-6 h-6 mr-2" />
+      Personal PlayLists
+    </NavLink> : null}
     {isLoggedin ? <div 
     className="flex flex-row justify-start items-center my-8 text-sm font-medium text-gray-500 hover:text-white cursor-pointer"
     onClick={() => handleLogout()}
