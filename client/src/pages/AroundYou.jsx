@@ -5,7 +5,6 @@ import Layout from "../components/Layout";
 const AroundYou = () => {
     const { data } = useGetAllPlayListsQuery()
 
-
     return (
         <Layout>
             <div className="flex flex-col">
