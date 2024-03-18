@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const MusicService = createApi({
     reducerPath: 'MusicService',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5001/api',
+        baseUrl: 'http://172.210.25.180:5001/api',
         prepareHeaders: (headers) => {
             headers.set('Authorization', `Bearer ${window.localStorage.getItem("token") }`);
             return headers;
