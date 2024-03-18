@@ -11,5 +11,6 @@ router.post("/add-playlist", authenticate, playlistController.createPlaylist)
 router.put("/add-music-to-playlist", authenticate, playlistController.addMusicToPlaylist)
 router.get("/all-playlists", playlistController.getAllGlobalPlaylist)
 router.delete("/delete-playlist/:id", playlistController.deletePlaylist);
+router.get("/playlist-by-id/:id", playlistController.playListDetails)
 
 module.exports = router

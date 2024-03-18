@@ -45,7 +45,6 @@ const AddToPlayListModal = ({ isOpen, onClose, onSubmit }) => {
                                 </h3>
                                 <div className="mt-2">
                                     <select
-                                        labelId="playlist-name"
                                         id="playlist-select"
                                         value={playListId}
                                         onChange={(event) => setPlayListId(event.target.value)}

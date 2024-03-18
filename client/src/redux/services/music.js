@@ -36,6 +36,11 @@ export const MusicService = createApi({
                 method: 'PUT',
                 body: payload
             })
+        }),
+        getPlayListById: builder.query({
+            query: ({playlistId}) => {
+                return `/music/playlist-by-id/${playlistId}`
+            }
         })
     }),
 });
@@ -46,5 +51,6 @@ export const {
     useGetAllPlayListsQuery,
     useAddPlaylistMutation,
     useDeletePlaylistMutation,
-    useAddMusicToPlayListMutation
+    useAddMusicToPlayListMutation,
+    useGetPlayListByIdQuery
 } = MusicService;

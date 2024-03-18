@@ -41,7 +41,7 @@ const addMusicToPlaylist = async (req, res, next) => {
 
 const getAllGlobalPlaylist = async (req, res, next) => {
     try {
-        const playLists = await Playlist.find({})
+        const playLists = await Playlist.find({}).populate("tracks")
         res.json(playLists)
     } catch (error) {
         next(error)
@@ -64,9 +64,25 @@ const deletePlaylist = async (req, res, next) => {
     }
 };
 
+const playListDetails = async(req, res, next) => {
+    try{
+        const playlistId = req.params.id;
+        const playlist = await Playlist.findById(playlistId).populate("tracks")
+        if(playlist){
+            return res.status(200).json({message: "Playlist Found", playlist})
+        }else{
+            return res.status(404).json({message:"Playlist Not found"})
+        }
+    }
+    catch(error){
+
+    }
+}
+
 module.exports = {
     createPlaylist,
     addMusicToPlaylist,
     getAllGlobalPlaylist,
-    deletePlaylist
+    deletePlaylist,
+    playListDetails
 }

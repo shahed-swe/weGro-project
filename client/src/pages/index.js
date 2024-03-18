@@ -7,6 +7,7 @@ import TopCharts from './TopCharts';
 import AroundYou from './AroundYou';
 import Login from './Login';
 import Registration from './Registration';
+import PlayListSongs from './PlaylistSongs';
 export {
   Discover,
   Search,
@@ -16,5 +17,6 @@ export {
   TopCharts,
   AroundYou,
   Login,
-  Registration
+  Registration,
+  PlayListSongs
 };

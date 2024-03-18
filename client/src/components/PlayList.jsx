@@ -1,13 +1,19 @@
 import { SiGocd } from "react-icons/si";
 import { RiDeleteBinLine } from "react-icons/ri";
-
+import { useNavigate } from "react-router-dom";
 
 const Playlist = ({ playlist, onDelete }) => {
+    const navigate = useNavigate()
+    
+    const handlePlayListDetails = (id) => {
+        navigate(`/playlist/${id}`)
+    }
+
     return (
-        <div className="flex flex-col w-[250px] p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
+        <div className="flex flex-col w-[250px] p-4 bg-white/10 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer" onClick={() => handlePlayListDetails(playlist._id)}>
             <button
                 onClick={() => onDelete(playlist)}
-                className="absolute top-2 right-2 px-2 py-2 text-white hover:text-white"
+                className="absolute top-2 right-2 px-2 py-2 text-white hover:text-white z-30"
             >
                 <RiDeleteBinLine size={20}/>
             </button>

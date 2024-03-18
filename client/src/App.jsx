@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts, Login, Registration } from './pages';
+import { ArtistDetails, TopArtists, AroundYou, Discover, Search, SongDetails, TopCharts, Login, Registration, PlayListSongs } from './pages';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
           <Route path="/artists/:id" element={<ArtistDetails />} />
           <Route path="/songs/:songid" element={<SongDetails />} />
           <Route path="/search/:searchTerm" element={<Search />} />
+          <Route path="/playlist/:id" element={<PlayListSongs/>}/>
         </Routes>
     </div>
   );
